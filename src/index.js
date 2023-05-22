@@ -1,20 +1,20 @@
-import { Personagem } from "./models/Personagem.js"
+import { PersonagemView } from "./components/personagem-view.js";
+import { Mago } from "./models/Mago.js";
+import {Arqueiro} from "./models/Arqueiro.js"
+import { ArqueiroMago } from "./models/ArqueiroMago.js";
+import { Guerreiro } from "./models/Guerreiro.js";
 
-// const personagemPedrinho = {
-//     nome: 'Pedrinho',
-//     vida: 7,
-//     mana: 12,
-//     level: 5,
-//     tipo: 'Mago',
-// }
+const personagemLeandro = new Mago('Leandro','fogo',3);
+const personagemRafael = new Arqueiro('Rafael',2);
+const personagemFelipe = new ArqueiroMago('Felipe',7,'ar',10);
+const personagemMiguel = new Guerreiro('Miguel',13);
 
-// const personagemJose = {
-//     nome: 'Jose',
-//     vida: 7,
-//     mana: 6,
-//     level: 3,
-//     tipo: 'Arqueiro',
-// }
 
-const personagemPedrinho = new Personagem('Pedrinho',5,'Mago');
-const personagemJose = new Personagem('Jose',3,'Arqueiro');
+console.log(personagemLeandro);
+console.log(personagemRafael);
+
+
+const personagens = [personagemLeandro,personagemRafael,personagemFelipe,personagemMiguel];
+
+new PersonagemView(personagens).render()
+

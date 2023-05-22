@@ -1,4 +1,18 @@
-function render() {
+import { Personagem } from "../models/Personagem.js"
+import {mostrarModal} from "../components/modal.js"
+
+export class PersonagemView{
+personagens
+personagensSelecionados
+
+constructor(personagens){
+    this.personagens = personagens
+    this.ulPersonagens = document.querySelector('ul#personagens')
+    this.personagensSelecionados = []
+    this.escutarEventoDuelo();
+}
+
+render() {
     this.ulPersonagens.innerHTML = ''
     this.personagens.forEach(personagem => {
         const personagemLI = this.criaPersonagem(personagem)
@@ -8,11 +22,11 @@ function render() {
 
 criaPersonagem = (personagem) => {
     const personagemLI = document.createElement('li')
-    personagemLI.classList.add('personagem')
+    personagemLI.classList.add('personagem', personagem.constructor.tipo)
 
-    //const estaSelecionado = this.personagensSelecionados.indexOf(personagem) !== -1 //sintaxe para quando encontra no array
+    const estaSelecionado = this.personagensSelecionados.indexOf(personagem) !== -1 //sintaxe para quando encontra no array
 
-    //if (estaSelecionado) personagemLI.classList.add('selecionado')
+    if (estaSelecionado) personagemLI.classList.add('selecionado')
 
     personagemLI.innerHTML =
 
@@ -22,33 +36,33 @@ criaPersonagem = (personagem) => {
             <div class="combate"></div>
             <div class="level">
                 <button class="diminuir-level">-</button>
-                <p class="level-texto">Level </p>
+                <p class="level-texto">Level ${personagem.level}</p>
                 <button class="aumentar-level">+</button>
             </div>
         </div>
         <div class="container-imagem">
             <div class="imagem"></div>
             <div class="container-tipo">
-                <h2 class="tipo"></h2>
+                <h2 class="tipo">${personagem.constructor.tipo}</h2>
             </div>
         </div>
         <div class="container-nome">
-            <h3 class="nome"></h3>
+            <h3 class="nome">${personagem.nome}</h3>
         </div>
         <div class="container-descricao">
-            <p class="descricao"></p>
+            <p class="descricao">${personagem.constructor.descricao}</p>
         </div>
     </div>
     <div class="container-inferior">
         <img src="./src/assets/img/icone-mana.png" class="icone-mana">
-        <p class="insignia"></p>
+        <p class="insignia">${personagem.obterInsignia()}</p>
         <img src="./src/assets/img/icone-vida.png" class="icone-vida">
-        <h4 class="mana"></h4>
-        <h4 class="vida"></h4>
+        <h4 class="mana">${personagem.mana}</h4>
+        <h4 class="vida">${personagem.vida}</h4>
     </div>
     `
 
-    /*const containerLevel = personagemLI.querySelector('.level')
+    const containerLevel = personagemLI.querySelector('.level')
     containerLevel.onclick = (evt) => {
         evt.stopPropagation()
 
@@ -57,10 +71,10 @@ criaPersonagem = (personagem) => {
         if (evt.target.classList.contains('aumentar-level')) personagem.aumentarLevel()
 
         this.render()
-    }*/
+    }
 
 
-    /*personagemLI.onclick = () => {
+    personagemLI.onclick = () => {
         const jaTem2Selecionados = this.personagensSelecionados.length === 2
         if (!jaTem2Selecionados || estaSelecionado) {
             personagemLI.classList.toggle('selecionado')
@@ -69,13 +83,13 @@ criaPersonagem = (personagem) => {
 
             this.removeSelecao(personagem)
         }
-    }*/
+    }
 
     return personagemLI
 }
 
 
-/*adicionaSelecao = (personagem) => {
+adicionaSelecao = (personagem) => {
     this.personagensSelecionados.push(personagem)
     this.render()
 }
@@ -101,4 +115,6 @@ escutarEventoDuelo() {
 
         this.render()
     })
-}*/
+}
+
+}
